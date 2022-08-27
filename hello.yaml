@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {app: hello}
+  name: hello
+  namespace: squad01
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: hello}
+  template:
+    metadata:
+      labels: {app: hello}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: hello
+        image: "gcr.io/google-samples/hello-app:1.0"
+        env:
+          - {name: TARGET, value: World}
+        ports:
+          - {containerPort: 8080}
+
